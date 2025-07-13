@@ -1,4 +1,5 @@
 name: Build & Push Docker to Artifact Registry
+ gcloud auth configure-docker docker.pkg.dev
 
 on:
   push:
