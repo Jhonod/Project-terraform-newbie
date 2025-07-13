@@ -4,9 +4,10 @@ on:
   push:
     branches: [main]
 env:
-  REGION: ${{ secrets.REGION }}
-  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REPOSITORY_ID: ${{ secrets.REPOSITORY_ID }}
+  REGION: asia-southeast2
+  PROJECT_ID: arboreal-cosmos-440011-r8
+  REPOSITORY_ID: netbox-repo
+  NAME_IMAGE: netbox
 
 jobs:
   build-and-push:
@@ -31,7 +32,7 @@ jobs:
    
     - name: Build and Push Docker image
       run: |
-       IMAGE="${{ secrets.REGION }}${{ secrets.GCP_PROJECT_ID }}/${{ secrets.REPOSITORY_ID }}/netbox:latest"
+       IMAGE="$REGION/$PROJECT_ID/$REPOSITORY_ID/$NAME_IMAGE"
        echo "Building image: $IMAGE"
        docker build -t "$IMAGE" .
        docker push "$IMAGE"
