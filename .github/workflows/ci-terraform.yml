@@ -32,7 +32,7 @@ jobs:
    
     - name: Build and Push Docker image
       run: |
-       IMAGE="$REGION/$PROJECT_ID/$REPOSITORY_ID/$NAME_IMAGE"
+       IMAGE="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_ID/$NAME_IMAGE"
        echo "Building image: $IMAGE"
        docker build -t "$IMAGE" .
        docker push "$IMAGE"
