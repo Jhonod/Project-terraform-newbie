@@ -26,11 +26,11 @@ jobs:
 
     - name: Build and Push Docker image
       env:
-        PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        PROJECT_ID: ${{ secrets.PROJECT_ID }}
         REGION: ${{ secrets.REGION }}
         REPOSITORY: ${{ secrets.REPOSITORY_ID }}
       run: |
-        IMAGE="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_ID/netbox:latest"
+        IMAGE="$REGION/$PROJECT_ID/$REPOSITORY_ID/netbox:latest"
         echo "Building image: $IMAGE"
         docker build -t $IMAGE .
         docker push $IMAGE
