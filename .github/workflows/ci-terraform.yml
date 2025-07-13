@@ -1,5 +1,4 @@
 name: Build & Push Docker to Artifact Registry
- gcloud auth configure-docker docker.pkg.dev
 
 on:
   push:
@@ -23,10 +22,15 @@ jobs:
 
     - name: Configure Docker for Artifact Registry
       run: |
-        gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
+        gcloud auth configure-docker docker.pkg.dev
 
     - name: Build and Push Docker image
+      env:
+        PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        REGION: ${{ secrets.REGION }}
+        REPOSITORY: ${{ secrets.REPOSITORY_ID }}
       run: |
-        IMAGE="${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_ID }}/netbox:latest"
+        IMAGE="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/netbox:latest"
+        echo "Building image: $IMAGE"
         docker build -t $IMAGE .
         docker push $IMAGE
