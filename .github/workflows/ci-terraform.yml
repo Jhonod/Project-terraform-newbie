@@ -25,12 +25,8 @@ jobs:
         gcloud auth configure-docker docker.pkg.dev
 
     - name: Build and Push Docker image
-      env:
-        PROJECT_ID: ${{ secrets.PROJECT_ID }}
-        REGION: ${{ secrets.REGION }}
-        REPOSITORY: ${{ secrets.REPOSITORY_ID }}
       run: |
-        IMAGE="$REGION/$PROJECT_ID/$REPOSITORY/netbox:latest"
-        echo "Building image: $IMAGE"
-        docker build -t $IMAGE .
-        docker push $IMAGE
+       IMAGE="${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/${{ secrets.REPOSITORY_ID }}/netbox:latest"
+       echo "Building image: $IMAGE"
+       docker build -t "$IMAGE" .
+       docker push "$IMAGE"
