@@ -30,7 +30,7 @@ jobs:
         REGION: ${{ secrets.REGION }}
         REPOSITORY: ${{ secrets.REPOSITORY_ID }}
       run: |
-        IMAGE="asia-southeast2-docker.pkg.dev/arboreal-cosmos-440011/netbox-repo/netbox:latest
-        "echo "Building image: $IMAGE"
+        IMAGE="$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_ID/netbox:latest"
+        echo "Building image: $IMAGE"
         docker build -t $IMAGE .
         docker push $IMAGE
